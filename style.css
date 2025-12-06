@@ -1,0 +1,480 @@
+/* 1. CONFIGURACIÓN GENERAL */
+body {
+    background-image: url('img/patron.jpg'); /* Ruta a tu patrón */
+    background-repeat: repeat; /* Para que la imagen se repita y cubra todo */
+    background-color: #fdf2f8; /* Color de respaldo si no carga la imagen */
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; 
+    color: #4a4a4a;
+    margin: 0;
+    padding: 20px;
+    text-align: center;
+}
+
+
+/* 2. TIPOGRAFÍA ROMÁNTICA */
+h1, h2 {
+    font-family: 'Dancing Script', cursive; /* Fuente tipo manuscrita */
+    color: #db2777; /* Rosa oscuro */
+}
+
+h1 { 
+    font-size: 3.5rem; 
+    margin-bottom: 10px; 
+    
+    /* 🛠️ MODIFICACIÓN */
+    font-weight: 700; 
+    letter-spacing: 2px;
+    text-shadow: 
+        1px 1px 1px rgba(0,0,0,0.1),
+        -1px -1px 0 #fff;
+    position: relative; 
+}
+
+/* 🛠️ AÑADIDO: Diferenciación del H2 (Título de Momento) */
+h2 {
+    font-family: 'Dancing Script', cursive; 
+    font-size: 2rem; 
+    font-weight: 400; /* Más delgado que el H1 (700) */
+    color: #db2777; 
+    margin-top: 5px;
+    margin-bottom: 15px;
+}
+
+/* 🛠️ AÑADIDO: Línea decorativa bajo el H1 */
+h1::after {
+    content: ''; 
+    position: absolute;
+    bottom: -15px; 
+    left: 50%;
+    transform: translateX(-50%); 
+    
+    width: 80%; 
+    height: 2px; 
+    
+    background-color: #e3a0c5; 
+}
+
+/* 3. LAS TARJETAS DE MOMENTOS */
+.contenedor-principal {
+    max-width: 800px; /* Que no se ensanche demasiado */
+    margin: 0 auto; /* Centrado */
+    padding: 30px; /* Espacio interior */
+    background-color: rgba(255, 255, 255, 0.7); /* Fondo blanco semitransparente */
+    border-radius: 25px; /* Bordes redondeados grandes */
+    backdrop-filter: blur(5px);
+}
+
+.tarjeta-momento {
+    background: #FFFBF5;
+    border-radius: 20px;
+    padding: 20px;
+    margin-bottom: 40px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1); /* Sombra suave para que flote */
+    display: flex; /* Esto pone foto y texto lado a lado */
+    align-items: center;
+    gap: 20px;
+    transition: transform 0.3s; /* Animación suave al pasar el ratón */
+    position: relative;
+}
+
+.tarjeta-momento:hover {
+    transform: scale(1.02); /* Se agranda un poquito al pasar el ratón */
+}
+
+/* Para alternar (foto derecha, texto izquierda) */
+.reverso {
+    flex-direction: row-reverse;
+}
+
+/* Esconde las tarjetas al inicio, con opacidad 0 */
+.tarjeta-momento {
+    /* ... otros estilos existentes ... */
+    opacity: 0; 
+    transform: translateY(20px); /* Ligeramente desplazadas hacia abajo */
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out; /* Animación de 0.6 segundos */
+}
+
+/* Clase que se añade con JS para REVELAR la tarjeta */
+.tarjeta-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.texto-momento {
+    /* Ocupa el espacio restante en el flexbox */
+    flex-grow: 1; 
+    text-align: left; /* Alineamos el texto a la izquierda para mejor lectura */
+    padding-left: 15px; /* Espacio para el borde */
+    border-left: 3px solid #fce7f3; /* Línea suave a la izquierda */
+    margin: 10px 0;
+}
+
+/* 4. FOTOS REDONDAS */
+.marco-foto img {
+    width: 190px;
+    height: 225px;
+    object-fit: cover; /* IMPORTANTE: Esto recorta la foto para que no se deforme */
+    border-radius: 50%; /* ¡ESTO LA HACE REDONDA! */
+    border: 2px solid black; /* Borde rosita */
+}
+
+/* 5. BOTÓN BONITO */
+.boton-corazon {
+    display: inline-block;
+    background-color: #db2777;
+    color: white;
+    padding: 15px 30px;
+    text-decoration: none; /* Quita el subrayado */
+    border-radius: 50px;
+    font-weight: bold;
+    margin-top: 30px;
+    box-shadow: 0 5px 15px rgba(219, 39, 119, 0.4);
+}
+
+.boton-corazon:hover {
+    background-color: #be185d;
+}
+
+.separador-estetico {
+    border: none; /* Quitamos el borde por defecto */
+    height: 3px; /* Grosor de la línea */
+    background: linear-gradient(to right, 
+        rgba(255, 255, 255, 0) 0%, /* Transparente al inicio */
+        #e3a0c5 25%, /* Color rosa/morado en el centro */
+        #e3a0c5 75%,
+        rgba(255, 255, 255, 0) 100% /* Transparente al final */
+    );
+    width: 60%; /* La línea no ocupa todo el ancho, solo el 60% */
+    margin: 40px auto; /* Espaciado y centrado */
+}
+
+/* RESPONSIVE: Para que se vea bien en el móvil */
+@media (max-width: 600px) {
+    .tarjeta-momento, .reverso {
+        flex-direction: column; /* En móvil, uno debajo del otro */
+    }
+    
+    /* 🛠️ AÑADIDO: Reducir el tamaño del H1 para que quepa bien en el móvil */
+    h1 {
+        font-size: 2.2rem; 
+    }
+    
+    /* 🛠️ AÑADIDO: Reduce el padding para aprovechar espacio */
+    .contenedor-principal {
+        padding: 20px 10px; 
+    }
+    
+    /* 🛠️ AÑADIDO: Asegura que las comillas decorativas no ocupen demasiado */
+    .subtitulo {
+        font-size: 1.1rem;
+    }
+}
+
+/* =========================================
+   ESTILOS PARA MINI-GALERÍA (FOTOS Y VIDEOS)
+   ========================================= */
+
+/* 1. El contenedor */
+.galeria-dos {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+/* 2. Estilo base UNIFICADO para fotos y videos */
+.galeria-dos img, 
+.galeria-dos video {
+    /* Tamaño fijo para ambos */
+    width: 140px; 
+    height: 140px;
+    
+    /* Ajustes visuales */
+    object-fit: cover;
+    border-radius: 50%; 
+    border: 4px solid #e0d9d4; 
+    
+    /* LA ANIMACIÓN (Importante para que el hover funcione suave) */
+    transition: all 0.3s ease;
+    
+    box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+    position: relative;
+}
+
+/* 3. Posicionamiento (Superposición) */
+.foto-primaria {
+    z-index: 1; /* Al fondo */
+}
+
+.foto-secundaria {
+    margin-left: -40px; /* Se monta encima de la otra */
+    z-index: 2; /* Al frente */
+    margin-top: 30px;
+}
+
+/* 4. INTERACTIVIDAD (EL HOVER QUE FALTABA) */
+/* Esto hace que TANTO la foto COMO el video se agranden */
+.galeria-dos img:hover,
+.galeria-dos video:hover {
+    transform: scale(1.15); /* Se agranda un 15% */
+    z-index: 10; /* Se pone por delante de todo */
+    border-color: #404040;
+box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
+    cursor: pointer; /* Sale la manita */
+}
+
+/* Detalle de Esquina Doblada o Recortada (Triángulo) */
+.tarjeta-momento::before {
+    content: ''; /* Contenido vacío */
+    position: absolute;
+    top: 0;
+    right: 0;
+    
+    /* Truco para crear un triángulo con bordes CSS */
+    width: 0;
+    height: 0;
+    
+    /* Estilos del triángulo (el borde es el que dibuja la forma) */
+    border-top: 30px solid #f0e6e6; /* Color de papel muy claro */
+    border-left: 30px solid transparent; /* Lado transparente */
+    
+    z-index: 5;
+    box-shadow: -2px 2px 5px rgba(0,0,0,0.1);
+}
+
+/* Estilo para los párrafos dentro de las tarjetas */
+.texto-momento p {
+    font-size: 1.05rem; /* Fuente ligeramente más pequeña o más grande */
+    line-height: 1.6; /* Aumenta el espacio entre líneas para mejor lectura */
+    color: #4a4a4a; 
+    text-align: left; /* Alinea a la izquierda, mejor para párrafos largos */
+    margin: 10px 0;
+}
+
+/* ⚠️ Añadimos un borde simulando el margen de una carta */
+.texto-momento {
+    flex-grow: 1; 
+    padding-left: 20px; /* Espacio para el borde/margen */
+    border-left: 1px dashed #e0d9d4; /* Línea discontinua muy sutil, color hueso */
+}
+
+/* 1. ESTILO PARA EL CONTADOR DE DÍAS (SUSTITUIR COMPLETO) */
+#contador-amor {
+    /* Estilos de Bloque y Centrado */
+    margin: 25px auto 35px auto; /* Separación superior e inferior, y centrado */
+    padding: 10px 20px;
+    display: inline-block; /* El bloque solo ocupa el ancho del contenido */
+    
+    /* Borde Decorativo (simula una nota pegada) */
+    border: 1px solid #e0d9d4; /* Borde sutil color hueso */
+    border-radius: 8px; /* Esquinas ligeramente redondeadas */
+    background-color: #fcf8f0; /* Color ligeramente más oscuro que la tarjeta */
+
+    /* Estilos de Texto */
+    font-size: 1.1rem;
+    color: #4a4a4a;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; 
+}
+
+/* 2. Resaltar el número de días (MANTENER ESTE ESTILO, PERO CON EL SELECTOR COMPLETO) */
+#contador-amor #dias-juntos {
+    font-weight: bold;
+    color: #db2777; /* Color de acento de 'tinta' */
+    font-size: 1.5rem;
+    padding: 0 5px;
+}
+
+/* 1. Estilo para el subtítulo introductorio */
+.subtitulo {
+    font-size: 1.3rem; /* Lo hacemos más grande que el texto normal */
+    font-weight: 300; /* Lo hacemos delgado (ligero) para elegancia */
+    color: #555555; /* Un gris más suave que el negro total */
+    margin-top: 15px; /* Separación sutil del H1 */
+    margin-bottom: 25px; /* Separación del contador de días */
+}
+
+/* Añadir comillas decorativas al principio y al final */
+.subtitulo::before {
+    content: '« ';
+    color: #0a0a0a; /* Color de tinta/acento */
+    font-size: 1.5rem;
+    padding-right: 5px;
+}
+
+.subtitulo::after {
+    content: ' »';
+    color: #0a0a0a;
+    font-size: 1.5rem;
+    padding-left: 5px;
+}
+
+/* Estilo para la Dedicatoria/Cierre (Añadir al final del CSS) */
+.dedicatoria-final {
+    margin-top: 50px;
+    padding-top: 20px;
+    border-top: 1px dashed #e0d9d4; /* Línea discontinua sutil, como un separador interno */
+    
+    font-family: 'Dancing Script', cursive; /* Usamos la fuente manuscrita */
+    font-size: 1.8rem;
+    color: #404040; /* Gris de tinta oscuro */
+    font-style: italic;
+}
+
+/* =========================================
+   ESTILOS PARA LA PÁGINA PREVIA (CARTA CERRADA)
+   ========================================= */
+.carta-previa-contenedor {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; /* Ocupa toda la altura de la pantalla */
+    text-align: center;
+    padding: 20px;
+    background-color: #fcf8f0; /* Fondo crema para esta página también */
+}
+
+.titulo-previa {
+    font-family: 'Dancing Script', cursive;
+    font-size: 3.8rem;
+    color: #db2777; /* Tu rosa de acento */
+    margin-bottom: 15px;
+    text-shadow: 1px 1px 1px rgba(0,0,0,0.1);
+}
+
+.mensaje-previa {
+    font-family: 'Franklin Gothic Medium', Arial, sans-serif;
+    font-size: 1.5rem;
+    color: #4a4a4a;
+    margin-bottom: 40px;
+    max-width: 600px;
+}
+
+.imagen-carta-cerrada {
+    max-width: 350px; /* Tamaño de la imagen de la carta */
+    height: auto;
+    margin-bottom: 50px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    border-radius: 10px;
+    transition: transform 0.5s ease;
+}
+
+.imagen-carta-cerrada:hover {
+    transform: scale(1.05) rotateZ(-3deg); /* Pequeña animación al pasar el ratón */
+}
+
+.boton-abrir-carta {
+    display: inline-block;
+    background-color: #db2777;
+    color: white;
+    padding: 18px 40px;
+    text-decoration: none;
+    border-radius: 50px;
+    font-weight: bold;
+    font-size: 1.2rem;
+    box-shadow: 0 5px 15px rgba(219, 39, 119, 0.4);
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.boton-abrir-carta:hover {
+    background-color: #be185d;
+    transform: translateY(-3px);
+}
+
+/* Responsive para la página previa */
+@media (max-width: 600px) {
+    .titulo-previa {
+        font-size: 2.8rem;
+    }
+    .mensaje-previa {
+        font-size: 1.2rem;
+    }
+    .imagen-carta-cerrada {
+        max-width: 250px;
+    }
+    .boton-abrir-carta {
+        padding: 15px 30px;
+        font-size: 1rem;
+    }
+}
+
+/* =========================================
+   ESTILOS PARA LA PÁGINA COLLAGE (TABLÓN DE CORCHO)
+   ========================================= */
+
+.collage-contenedor {
+    /* Establece el contexto de posición para las fotos absolutas */
+    position: relative; 
+    /* Le damos suficiente altura para que las fotos puedan esparcirse */
+    min-height: 950px; 
+    margin: 40px auto;
+    max-width: 1000px; /* Limita el ancho del tablón en escritorio */
+    background-color: #fdfaf5; /* Fondo ligeramente más oscuro o con una textura de corcho sutil si la tienes */
+    border-radius: 15px;
+    padding: 30px 10px;
+}
+
+.collage-foto {
+    /* CLAVE: Permite mover y rotar las fotos libremente DENTRO del .collage-contenedor */
+    position: absolute; 
+    width: 250px;
+    height: 180px;
+    object-fit: cover;
+    
+    /* Efecto de foto estilo Polaroid o nota pegada */
+    border: 8px solid white;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    
+    /* Aplica la rotación definida en el HTML (usando la variable --rotation) */
+    transform: rotate(var(--rotation, 0deg)); 
+    transition: transform 0.3s ease;
+}
+
+.collage-foto:hover {
+    z-index: 20; /* La foto que se toca pasa al frente */
+    transform: scale(1.1) rotate(var(--rotation, 0deg));
+}
+
+/* Responsive: Desactiva el efecto en móvil */
+@media (max-width: 768px) {
+    .collage-contenedor {
+        min-height: auto;
+        /* En móvil, el tablón se centra y se reduce el padding */
+        padding: 15px; 
+    }
+    .collage-foto {
+        position: relative; /* Las fotos se vuelven una debajo de otra (apiladas) */
+        width: 90%;
+        height: auto;
+        margin: 15px auto;
+        /* Resetea la rotación y la posición fija */
+        top: auto !important; 
+        left: auto !important;
+        right: auto !important;
+        transform: none !important; 
+    }
+}
+
+/* ================================== */
+/* ESTILOS MINI REPRODUCTOR SPOTIFY */
+/* ================================== */
+#mini-reproductor-spotify {
+    /* Mantiene el reproductor visible al hacer scroll */
+    position: fixed; 
+    
+    /* Posición: 20px desde abajo y 20px desde la derecha */
+    bottom: 20px;
+    right: 20px;
+    
+    /* Asegura que esté por encima de todos los elementos */
+    z-index: 1000; 
+    
+    /* Opcional: añade un poco de sombra para destacarlo */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    
+    /* Opcional: un pequeño padding para que no se pegue tanto */
+    padding: 5px;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 15px;
+}

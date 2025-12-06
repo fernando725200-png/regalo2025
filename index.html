@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Acceso Personal</title>
+</head>
+<body>
+
+    <script>
+        // *** 1. PON AQUÍ LA CONTRASEÑA SECRETA ***
+        const CONTRASEÑA_CORRECTA = "saiya"; 
+        
+        // La página a la que redirige si la contraseña es correcta (tu carta)
+        const URL_DESTINO = "bienvenida.html"; 
+
+        function pedirContraseña() {
+            // Muestra la ventana para pedir la contraseña
+            const contraseña = prompt("¡Regalo para la mejor! la contraseña es 1234:");
+
+            // Verifica si la contraseña es correcta (no importa mayúsculas/minúsculas)
+            if (contraseña && contraseña.toLowerCase() === CONTRASEÑA_CORRECTA.toLowerCase()) {
+                // Si es correcta, redirige
+                window.location.href = URL_DESTINO; 
+            } else if (contraseña) {
+                // Si la clave es incorrecta
+                alert("Era broma, cara de culo.");
+                pedirContraseña(); 
+            } else {
+                // Si pulsa 'Cancelar'
+                alert("Necesitas la contraseña secreta para ver esto. 😉");
+                pedirContraseña(); 
+            }
+        }
+
+        // Ejecuta la función al cargar la página
+        pedirContraseña();
+    </script>
+
+</body>
+</html>
